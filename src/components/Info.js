@@ -5,11 +5,68 @@ import { GoRepo, GoGist } from "react-icons/go";
 import { FiUsers, FiUserPlus } from "react-icons/fi";
 
 const UserInfo = () => {
+  // Get the github data from the context
   const github = React.useContext(GithubContext);
-  const { user, repos, followers } = github;
-  return <h2>{user.login}</h2>;
+  // Destructure the github user data
+  const { public_repos, followers, following, public_gists } = github.user;
+  // Build an array from the destructured data
+  const items = [
+    {
+      id: 1,
+      icon: <GoRepo className="icon" />,
+      label: "repos",
+      value: public_repos,
+      color: "pink",
+    },
+    {
+      id: 2,
+      icon: <FiUsers className="icon" />,
+      label: "followers",
+      value: followers,
+      color: "green",
+    },
+    {
+      id: 3,
+      icon: <FiUserPlus className="icon" />,
+      label: "following",
+      value: following,
+      color: "purple",
+    },
+    {
+      id: 4,
+      icon: <GoRepo className="icon" />,
+      label: "gists",
+      value: public_gists,
+      color: "yellow",
+    },
+  ];
+  // Iterate over the array to display an Item component for each one
+  return (
+    <section className="section">
+      <Wrapper className="section-center">
+        {items.map((item) => (
+          // Item component is defined below...
+          <Item key={item.id} {...item} />
+        ))}
+      </Wrapper>
+    </section>
+  );
 };
-
+// Item component displays an individual piece of user data
+const Item = ({ icon, label, value, color }) => {
+  return (
+    <article className="item">
+      {/* Show the icon in the specified color */}
+      <span className={color}>{icon}</span>
+      <div>
+        {/* Show the value of the item */}
+        <h3>{value}</h3>
+        {/* Show the name of the item */}
+        <p>{label}</p>
+      </div>
+    </article>
+  );
+};
 const Wrapper = styled.section`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
