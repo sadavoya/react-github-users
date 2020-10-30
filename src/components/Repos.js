@@ -21,6 +21,14 @@ const Repos = () => {
     languageCount,
     defaultLanguage
   );
+  let repoCounts = getTopNReposByForkCounts(
+    github.repos,
+    languageCount,
+    languageCount,
+    defaultLanguage
+  );
+  const mostPopular = repoCounts.stars;
+  const forks = repoCounts.forks;
   // Sample Chart Data
   const chartData = [
     {
@@ -37,8 +45,6 @@ const Repos = () => {
     },
   ];
 
-  const mostPopular = chartData;
-  const forks = chartData;
   return (
     <section className="section">
       <Wrapper className="section-center">
@@ -119,6 +125,40 @@ function getTopNLanguageStarCounts(repos, numberOfLanguages, defaultLanguage) {
     .sort((a, b) => b.value - a.value) //...and sort by value DESC
     .slice(0, numberOfLanguages); //...and get the top entries
   // Debug
-  console.log(languages);
+  //console.log(languages);
   return languages;
+}
+// tally the repos by their star counts and fork counts and return the top entries
+function getTopNReposByForkCounts(
+  repos,
+  numberOfStarCounts,
+  numberOfForks,
+  defaultName
+) {
+  let repoCounts = repos.reduce(
+    (total, item) => {
+      // Destructure the repo data
+      let { name, stargazers_count, forks } = item;
+
+      // Ensure we have a language
+      name = name || defaultName;
+      // Initialize the language
+      total.stars[stargazers_count] = { label: name, value: stargazers_count };
+      total.forks[forks] = { label: name, value: forks };
+      return total;
+    },
+    { stars: {}, forks: {} }
+  );
+  // Convert langages object to an array of label/value pairs...
+  repoCounts = {
+    stars: Object.values(repoCounts.stars)
+      .sort((a, b) => b.value - a.value) //...and sort by value DESC
+      .slice(0, numberOfStarCounts),
+    forks: Object.values(repoCounts.forks)
+      .sort((a, b) => b.value - a.value) //...and sort by value DESC
+      .slice(0, numberOfForks),
+  }; //...and get the top entries
+  // Debug
+  console.log(repoCounts);
+  return repoCounts;
 }
