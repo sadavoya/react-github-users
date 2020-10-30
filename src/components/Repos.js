@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { GithubContext } from "../context/context";
 import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from "./Charts";
+const DEBUG = false;
 const Repos = () => {
   // Language to display when none provided
   const defaultLanguage = "(Not Specified)";
@@ -100,7 +101,7 @@ function getTopNLanguageCounts(repos, numberOfLanguages, defaultLanguage) {
     .sort((a, b) => b.value - a.value) //...and sort by value DESC
     .slice(0, numberOfLanguages); //...and get the top entries
   // Debug
-  // console.log(languages);
+  DEBUG && console.log(languages);
   return languages;
 }
 
@@ -125,7 +126,7 @@ function getTopNLanguageStarCounts(repos, numberOfLanguages, defaultLanguage) {
     .sort((a, b) => b.value - a.value) //...and sort by value DESC
     .slice(0, numberOfLanguages); //...and get the top entries
   // Debug
-  //console.log(languages);
+  DEBUG && console.log(languages);
   return languages;
 }
 // tally the repos by their star counts and fork counts and return the top entries
@@ -159,6 +160,6 @@ function getTopNReposByForkCounts(
       .slice(0, numberOfForks),
   }; //...and get the top entries
   // Debug
-  console.log(repoCounts);
+  DEBUG && console.log(repoCounts);
   return repoCounts;
 }
