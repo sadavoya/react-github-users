@@ -37,11 +37,13 @@ const Repos = () => {
     },
   ];
 
+  const mostPopular = chartData;
+
   return (
     <section className="section">
       <Wrapper className="section-center">
         <Pie3D data={languages} />
-        <div></div>
+        <Column3D data={mostPopular} />
         <Doughnut2D data={stars} />
         <div></div>
       </Wrapper>
