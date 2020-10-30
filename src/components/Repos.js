@@ -38,14 +38,14 @@ const Repos = () => {
   ];
 
   const mostPopular = chartData;
-
+  const forks = chartData;
   return (
     <section className="section">
       <Wrapper className="section-center">
         <Pie3D data={languages} />
         <Column3D data={mostPopular} />
         <Doughnut2D data={stars} />
-        <div></div>
+        <Bar3D data={forks} />
       </Wrapper>
     </section>
   );
