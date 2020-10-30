@@ -7,9 +7,7 @@ const Search = () => {
   // get things from global context
 
   const github = React.useContext(GithubContext);
-  const { requests } = github;
-
-  console.log(requests);
+  const { requests, error } = github;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,6 +17,11 @@ const Search = () => {
   return (
     <section className="section">
       <Wrapper className="section-center">
+        {error.show && (
+          <ErrorWrapper className="error">
+            <p>{error.msg}</p>
+          </ErrorWrapper>
+        )}
         <form onSubmit={handleSubmit}>
           <div className="form-control">
             <MdSearch />
@@ -31,7 +34,7 @@ const Search = () => {
               }}
               value={user}
             />
-            <button type="submit">Search</button>
+            {requests.remaining > 0 && <button type="submit">Search</button>}
           </div>
         </form>
         <h3>
