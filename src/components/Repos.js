@@ -16,6 +16,11 @@ const Repos = () => {
     languageCount,
     defaultLanguage
   );
+  let stars = getTopNLanguageStarCounts(
+    github.repos,
+    languageCount,
+    defaultLanguage
+  );
   // Sample Chart Data
   const chartData = [
     {
@@ -32,7 +37,6 @@ const Repos = () => {
     },
   ];
 
-  const stars = chartData;
   return (
     <section className="section">
       <Wrapper className="section-center">
@@ -89,5 +93,30 @@ function getTopNLanguageCounts(repos, numberOfLanguages, defaultLanguage) {
     .slice(0, numberOfLanguages); //...and get the top entries
   // Debug
   // console.log(languages);
+  return languages;
+}
+
+// tally the repo star counts by their languages and return the top entries
+function getTopNLanguageStarCounts(repos, numberOfLanguages, defaultLanguage) {
+  let languages = repos.reduce((total, item) => {
+    // Destructure the repo data
+    let { language, stargazers_count } = item;
+    // Ensure we have a language
+    language = language || defaultLanguage;
+    // Initialize the language
+    total[language] = total[language] || { label: language, value: 0 };
+    // Increment the language star count
+    total[language] = {
+      ...total[language],
+      value: total[language].value + stargazers_count,
+    };
+    return total;
+  }, {});
+  // Convert langages object to an array of label/value pairs...
+  languages = Object.values(languages)
+    .sort((a, b) => b.value - a.value) //...and sort by value DESC
+    .slice(0, numberOfLanguages); //...and get the top entries
+  // Debug
+  console.log(languages);
   return languages;
 }
