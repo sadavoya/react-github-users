@@ -1,8 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
-import { GithubContext } from '../context/context';
-import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from './Charts';
+import React from "react";
+import styled from "styled-components";
+import { GithubContext } from "../context/context";
+import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from "./Charts";
 const Repos = () => {
+  // Get the github data from the context
+  const github = React.useContext(GithubContext);
+  console.log(github.repos);
+
   return <h2>repos component</h2>;
 };
 
