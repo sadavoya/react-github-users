@@ -5,6 +5,12 @@ import { GithubContext } from "../context/context";
 const Search = () => {
   const [user, setUser] = React.useState("");
   // get things from global context
+
+  const github = React.useContext(GithubContext);
+  const { requests } = github;
+
+  console.log(requests);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (user) {
@@ -28,7 +34,9 @@ const Search = () => {
             <button type="submit">Search</button>
           </div>
         </form>
-        <h3>Requests: 60/60</h3>
+        <h3>
+          Requests: {requests.remaining}/{requests.limit}
+        </h3>
       </Wrapper>
     </section>
   );
