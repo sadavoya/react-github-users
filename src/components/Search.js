@@ -7,11 +7,12 @@ const Search = () => {
   // get things from global context
 
   const github = React.useContext(GithubContext);
-  const { requests, error } = github;
+  const { requests, error, searchGithubUser } = github;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (user) {
+      searchGithubUser(user);
     }
   };
   return (
