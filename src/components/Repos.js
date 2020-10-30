@@ -32,10 +32,14 @@ const Repos = () => {
     },
   ];
 
+  const stars = chartData;
   return (
     <section className="section">
       <Wrapper className="section-center">
         <Pie3D data={languages} />
+        <div></div>
+        <Doughnut2D data={stars} />
+        <div></div>
       </Wrapper>
     </section>
   );
