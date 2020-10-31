@@ -15,6 +15,10 @@ ReactDOM.render(
       domain="olsauth.us.auth0.com"
       clientId="pNgPsAjBaRSvjvnDSVa4zi7IPzX3v2dS"
       redirectUri={window.location.origin}
+      // Ensure that the Auth0 information is cached locally
+      // This ensures that e.g. when we navigate to the 404 error page
+      // we will not be logged out when we click the "back to home" button
+      cacheLocation="localstorage"
     >
       <GithubProvider>
         <App />
