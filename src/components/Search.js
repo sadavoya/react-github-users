@@ -7,7 +7,7 @@ const Search = () => {
   // get things from global context
 
   const github = React.useContext(GithubContext);
-  const { requests, error, searchGithubUser } = github;
+  const { requests, error, searchGithubUser, isLoading } = github;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,7 +35,9 @@ const Search = () => {
               }}
               value={user}
             />
-            {requests.remaining > 0 && <button type="submit">Search</button>}
+            {requests.remaining > 0 && !isLoading && (
+              <button type="submit">Search</button>
+            )}
           </div>
         </form>
         <h3>
