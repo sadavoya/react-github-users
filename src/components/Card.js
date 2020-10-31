@@ -16,7 +16,7 @@ const Card = () => {
     location,
     twitter_username,
   } = github.user;
-  blog = blog ? "https://" + blog : "";
+  blog = blog ? (blog.startsWith("http") ? "" : "https://") + blog : "";
   return (
     <Wrapper>
       <header>
