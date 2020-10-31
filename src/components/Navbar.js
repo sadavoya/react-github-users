@@ -11,10 +11,10 @@ const Navbar = () => {
     isLoading,
   } = useAuth0();
   const isUser = isAuthenticated && user;
-  console.log({ isAuthenticated, isLoading, user });
 
   return (
     <Wrapper>
+      {/* isUser is truthy when we are logged in. It contains the data about the logged in user */}
       {isUser && user.picture && <img src={user.picture} alt={user.name} />}
       {isUser && user.name && (
         <h4>
@@ -22,6 +22,7 @@ const Navbar = () => {
         </h4>
       )}
       {isUser ? (
+        // Only show logout if we are logged in
         <button
           onClick={() => {
             logout({ returnTo: window.location.origin });
@@ -30,6 +31,7 @@ const Navbar = () => {
           logout
         </button>
       ) : (
+        // only show login if we are neither logged in nor in the process of logging in (i.e. isLoading is true)
         isLoading || <button onClick={loginWithRedirect}>login</button>
       )}
     </Wrapper>
